@@ -34,6 +34,9 @@ namespace HotelApiDominykas.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<WorkerDto>> Get(int id, int hotelId)
         {
+            var hotel = await _hotelRepository.Get(hotelId);
+            if (hotel == null) return NotFound($"Hotel with id {hotelId} not found.");
+
             var worker = await _workersRepository.Get(id, hotelId);
             if (worker == null) return NotFound($"Worker with id '{id}' not found");
 
